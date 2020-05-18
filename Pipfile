@@ -1,0 +1,24 @@
+[[source]]
+url = "https://pypi.python.org/simple"
+verify_ssl = true
+
+[packages]
+gunicorn = {editable = true,version = "*"}
+django-heroku = "*"
+flask = "*"
+flask-sqlalchemy = "*"
+flask-migrate = "*"
+flask-wtf = "*"
+requests = "*"
+flask-session = "*"
+flask-login = "*"
+sass = "*"
+flask-script = "*"
+tweepy = "*"
+flask-googlerecaptcha = "*"
+pandas = "*"
+flask-cors = "*"
+flask-wysiwyg = "*"
+
+[requires]
+python_version = "3.6"
