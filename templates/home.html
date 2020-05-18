@@ -1,0 +1,65 @@
+{% extends "base.html" %}{% block body %}
+		{% with messages = get_flashed_messages(with_categories=true) %}
+    <article>
+      <section class="home-login w-80">
+        <div class="row home-container">
+          <div class="col-sm-12 col-md-6">
+            <h1>Book Review Website</h1>
+            <p>Search for books, leave reviews for individual books, and see the reviews made by other people</p>
+
+              <div class="login-form">
+                {% if messages %}
+                  {% for category, message in messages %}
+                    <div class="{{ category }}"><p>{{ message }}</p></div>
+                  {% endfor %}
+                {% endif %}
+
+                <div class="form">
+                  <ul class="nav nav-tabs" id="myTab" role="tablist">
+                    <li class="nav-item" role="presentation">
+                      <a class="nav-link active" id="login-tab" data-toggle="tab" href="#login" role="tab" aria-controls="login" aria-selected="true">Login</a>
+                    </li>
+
+                    <li class="nav-item" role="presentation">
+                      <a class="nav-link" id="signup-tab" data-toggle="tab" href="#signup" role="tab" aria-controls="signup" aria-selected="false">Signup</a>
+                    </li>
+                  </ul>
+
+                  <div class="tab-content" id="myTabContent">
+                    <div class="tab-pane fade show active" id="login" role="tabpanel" aria-labelledby="login-tab">
+                      <form method="POST" action="{{url_for('index')}}">
+                        <p>{{ form.username.label }}</p>
+                        <p>{{ form.username(size=20) }}</p>
+                        <p>{{ form.password.label }}</p> 
+                        <p>{{ form.password(size=20) }}</p>
+                        <button type="submit" class="cta-primary">LOGIN</button>
+                      </form>
+                    </div>
+                    <div class="tab-pane fade" id="signup" role="tabpanel" aria-labelledby="signup-tab">
+                      <form method="POST" action="{{url_for('signup')}}">
+                        <p>{{ form.username.label }}</p>
+                        <p>{{ form.username(size=20) }}</p>
+                        <p>{{ form.password.label }}</p> 
+                        <p>{{ form.password(size=20) }}</p>
+                        <button type="submit" class="cta-primary">SIGNUP</button>
+                      </form>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+          </div>
+
+          <div class="col-sm-12 col-md-6 d-none d-md-block">
+            <img src="{{ url_for('static', filename='img/people-reading.jpg') }}" alt="graphic of people reading"/>
+            <p class="t-right"><a href="https://www.freepik.com/iwat1929">Source</a></p>
+          </div>
+          
+      </div>
+      </section>
+    </article>
+
+	{% endwith %}
+{% endblock %}
+
+
