@@ -1,1 +1,1 @@
-web: gunicorn bcbg.webapp:app runserver 0.0.0.0:5000
+web: gunicorn app runserver 0.0.0.0:5000
