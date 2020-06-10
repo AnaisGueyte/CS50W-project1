@@ -18,9 +18,6 @@ if not os.getenv("DATABASE_URL"):
 app.config["SESSION_PERMANENT"] = False
 app.config["SESSION_TYPE"] = "filesystem"
 app.config['DEBUG'] = True
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres://fdlzfwsmgxqegf:2c83af2945a01c8021a131b59c7d0ce4b9aa73ced291373e77400b0bc3cf6db7@ec2-18-214-211-47.compute-1.amazonaws.com:5432/d6fbaqgtnl6083'
-
-
 Session(app)
 
 # Set up database
@@ -39,4 +36,3 @@ import routes, models
 
 if __name__ == "__main__":
 	app.run(routes, debug=True)
-
