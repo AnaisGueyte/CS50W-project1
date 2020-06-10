@@ -13,7 +13,7 @@ h1, h2, h3, h4, h5{
 	padding: 0.5em 0;
 }
 
-p{
+p, legend, li, a{
 	font-family: 'Dosis', serif; 
 }
 
@@ -22,15 +22,21 @@ p{
 	margin: auto;
 }
 
+@media only screen and (max-width: 600px){
+  	.w-80{
+		width: 95%;
+	}
+}
+
 .d-none {
     display: none!important;
 }
 
 
 .cta-primary{
-	border: 2px solid #ef9801;
-	color: #000;
-  	background-color: #ef9801;
+	border: 2px solid #db9639;
+	color: #fff;
+  	background-color: #db9639;
 	text-transform: uppercase;
 	font-weight: bold;
 	display: inline-block;
@@ -49,10 +55,37 @@ p{
 }
 
 .cta-primary:hover{
-  	border: 2px solid #ef9801;
-  	color: #ef9801;
+  	border: 2px solid #db9639;
+  	color: #db9639;
   	background-color: transparent!important;
-  }
+}
+
+.cta-secondary{
+	border: 2px solid #2C2C2C;
+	color: #2C2C2C;
+  	background-color: transparent;
+	text-transform: uppercase;
+	font-weight: bold;
+	display: inline-block;
+	text-align: center;
+  	vertical-align: middle;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    border-radius: .25rem;
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+.cta-secondary:hover{
+  	border: 2px solid #2C2C2C;
+  	color: #fff;
+  	background-color: #2C2C2C!important;
+}
 
 @media (min-width: 768px){
 	.d-md-block {
@@ -77,7 +110,95 @@ p{
 
 
 
+.form{
+	padding: 1em;
+	background: #f1f1f1;
+	border-radius: 10px;
 
+	.nav-tabs{
+		.nav-item{
+			.active {
+			    font-weight:bold;
+			    border-color: transparent;
+    			color: #495057;
+    			background-color: transparent; 
+				border-color: transparent;
+				font-size: 1.15em;
+			}
+			a{
+				color: #495057;
+				font-size: 0.85em;
+			}
+		}
+	}
+	
+
+	form{
+	    border-radius: 10px;
+	    margin-top: 1em;
+	     
+	    label{
+			font-weight: bold;
+		}
+
+		p{
+			margin: 0px!important;
+		}
+
+		input{
+			display: block;
+		    width: 100%;
+		    padding: .375rem .75rem;
+		    font-size: 1rem;
+		    line-height: 1.5;
+		    color: #495057;
+		    background-color: #fff;
+		    background-clip: padding-box;
+		    border: 1px solid #ced4da;
+		    border-radius: .25rem;
+		    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+		}
+
+		textarea{
+			display: block;
+		    width: 100%;
+		    padding: .375rem .75rem;
+		    font-size: 1rem;
+		    line-height: 1.5;
+		    color: #495057;
+		    background-color: #fff;
+		    background-clip: padding-box;
+		    border: 1px solid #ced4da;
+		    border-radius: .25rem;
+		    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+		    overflow: auto;
+		    resize: vertical;
+		}
+
+		button{
+			margin-top: 1em;
+		}
+	}
+}
+
+label[required=required]:after { 
+   content:"*";
+   color:red;
+}
+
+.search-form{
+	label{
+		margin-top: 1em;
+	}
+}
+
+
+.book-card{
+	background-color: #f1f1f1;
+    padding: 1em;
+    border-radius: 10px;
+    margin: 0.5em;
+}
 
 .header{
 	padding: 1em;
@@ -95,57 +216,6 @@ p{
 	.home-container{
 	    padding: 1em;
 		margin: 2em auto;
-
-		.login-form{
-			.form{
-				padding: 1em;
-    			background: #f1f1f1;
-    			border-radius: 10px;
-
-    			.nav-tabs{
-		    		.nav-link{
-		    			.active {
-						    color: #fff;
-						    font-weight:bold;
-						    background-color: #ef9801!important;
-						    border-color: #transparent
-						}
-		    		}
-	    		}
-
-    			form{
-    			    padding: .5em;
-				    border-radius: 10px;
-				    margin-top: 1em;
-				     
-				    label{
-    					font-weight: bold;
-    				}
-
-	    			p{
-	    				margin: 0px!important;
-	    			}
-
-	    			input{
-	    				display: block;
-					    width: 100%;
-					    padding: .375rem .75rem;
-					    font-size: 1rem;
-					    line-height: 1.5;
-					    color: #495057;
-					    background-color: #fff;
-					    background-clip: padding-box;
-					    border: 1px solid #ced4da;
-					    border-radius: .25rem;
-					    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
-	    			}
-
-	    			button{
-	    				margin-top: 1em;
-	    			}
-    			}
-			}
-		}
 
 		img{
 			width: 100%;
