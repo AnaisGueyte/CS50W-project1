@@ -6,6 +6,8 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from wtforms.validators import DataRequired
 from application import app, db
 from models import *
+from routes_folder import search, review, book_page, api
+from command import imports
 
 from flask_login import login_required, login_user, login_manager
 from flask_sqlalchemy import SQLAlchemy
@@ -17,7 +19,9 @@ import re
 import random
 import pickle
 
-#cors = CORS(app, resources={r"/api/*": {"origins": "http://motsmagiques.fr/, https://motsmagiques.fr/"}})
+
+
+#search for books, leave reviews for individual books, and see the reviews made by other people
 
 ####################### FRONT #######################
 
@@ -42,18 +46,23 @@ def index():
             is_password_true = check_password_hash(user.password, form.password.data)
 
         if user is None:
-            flash('Oh, oh! This user isn\'t registered', 'alert alert-danger')
+            flash('Oh, no! This user isn\'t registered', 'alert alert-danger')
             return redirect(url_for('index'))
 
         if is_password_true is False:
+            flash('Oh, no! Something went wrong with the password, try again!', 'alert alert-danger')  
+            return redirect(url_for('index'))
+
+        if user and is_password_true is True:
             login_user(user)
-            return redirect(url_for('dashboard'))
+            session['logged_in'] = True
+            session['username'] = user.get_id()
+            flash('Welcome!', 'alert alert-success')  
+            return redirect(url_for('search'))
 
         else:
-            login_user(user)
-            return redirect(url_for('dashboard'))
-    else:
-        return render_template('home.html', form=form)
+            flash('Wow! Something went wrong, try again?', 'alert alert-danger')  
+            return redirect(url_for('index'))
 
     return render_template('home.html', form=form)
 
@@ -66,21 +75,47 @@ def signup():
 
         user = Auth_user()
         user.username = form.username.data
-        password = form.password.data
-        user.password = generate_password_hash(password)
-        db.session.add(user)
-        db.session.commit()
 
-        flash("Account successfully created", 'alert alert-success')
-        return redirect(url_for("dashboard"))
+        username_exist = Auth_user.query.filter(Auth_user.username == user.username).first()
+
+        if username_exist is None:
+
+            password = form.password.data
+            user.password = generate_password_hash(password)
+            db.session.add(user)
+            db.session.commit()
+
+            session['logged_in'] = True
+            session['username'] = user.get_id()
+
+            flash("Account successfully created, Welcome!", 'alert alert-success')
+            return redirect(url_for("search"))
+
+        else:
+            flash("Oh, no! This user already exists! Try something else!", 'alert alert-danger')
+            return redirect(url_for("index"))
 
     return render_template('home.html', form=form)
 
-    
-@app.route('/dashboard', methods=['GET', 'POST'])
-def dashboard():
 
-    res = requests.get("https://www.goodreads.com/book/review_counts.json", params={"key": "xBKc2kBrb6SrUUxzmEvXQ", "isbns": "9781632168146"})
-    #print(res.json())
 
-    return render_template('dashboard.html')
+@app.route('/logout')
+@login_required
+def logout():
+    session['logged_in'] = False 
+    session.pop('logged_in', )
+    flash('You were logged out.', 'alert alert-success')
+    return redirect(url_for('index'))
+
+
+@app.errorhandler(404)
+@app.route('/error')
+def page_not_found(error):
+
+    return render_template('404.html'), 404
+
+@app.errorhandler(500)
+def internal_error(error):
+    db.session.rollback()
+    return render_template('404.html'), 500
+
