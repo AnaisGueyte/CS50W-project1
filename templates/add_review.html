@@ -1,0 +1,40 @@
+{% extends "base.html" %}{% block body %}
+		{% with messages = get_flashed_messages(with_categories=true) %}
+    <article>
+      <section class="dashboard w-80">
+      	<div class="breadscrumb">
+        	<p><i class="fa fa-angle-right mx-3" aria-hidden="true"></i><a href="{{ url_for('search') }}">Back to search</a></p>
+    	</div>
+
+      	<div class="header-page">
+      		{% if messages %}
+                {% for category, message in messages %}
+                    <div class="{{ category }}"><p><a href="#book_results">{{ message }}</a></p></div>
+                {% endfor %}
+            {% endif %}
+
+            <h1>Add a review: {% if book %}  {{ book.title }} {% endif %}</h1>
+	    </div>
+
+	    <div class="book-body">
+	    	<div class="search-form">
+	    		<div class="form">
+	    			<form method="POST" action="{{ url_for('add_review', isbn=book.isbn)}}">
+		    			<p>{{ form.note.label }}</p>
+		    			{{ form.note }}
+              <p>{{ form.review.label }}</p>
+              {{ form.review }}
+            <button type="submit" class="cta-primary">SUBMIT</button>
+        	</form>
+	    		</div>
+	    		
+		    </div>
+		</div>
+
+      </section>
+    </article>
+
+	{% endwith %}
+{% endblock %}
+
+

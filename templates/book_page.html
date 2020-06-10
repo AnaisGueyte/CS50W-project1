@@ -1,0 +1,60 @@
+{% extends "base.html" %}{% block body %}
+		{% with messages = get_flashed_messages(with_categories=true) %}
+    <article>
+      <section class="dashboard w-80">
+      	<div class="breadscrumb">
+        	<p><i class="fa fa-angle-right mx-3" aria-hidden="true"></i><a href="{{ url_for('search') }}">Back to search</a></p>
+    	</div>
+
+      	<div class="header-page">
+      		{% if messages %}
+                {% for category, message in messages %}
+                    <div class="{{ category }}"><p><a href="#book_results">{{ message }}</a></p></div>
+                {% endfor %}
+            {% endif %}
+
+            <h1>Book Page: {% if book %}  {{ book.title }} {% endif %}</h1>
+	    </div>
+
+	    <div class="book-body">
+	    	<div class="book-details">
+		    {% if book %}
+		    	<p><b>Author:</b> {{ book.author }}</p>
+		    	<p><b>Publication year:</b> {{ book.year }}</p>
+		    	<p><b>ISBN:</b> {{ book.isbn }}</p>
+
+		    	{% if gr_reviews %}
+		    	<p><b>Good Read Reviews Count:</b> {{ gr_reviews.reviews_count }}</p>
+		    	<p><b>Good Read Average Rating:</b> {{ gr_reviews.average_rating }}</p>
+		    	{% endif %}
+
+		    {% endif %}
+		    </div>
+		    <div class="book-reviews">
+		    	<h2>Reviews</h2>
+		    	{% if reviews %}
+			    	{% for review in reviews %}
+			    	<div class="row">
+			    		<div class="col-sm-12 col-md-5 book-card">
+			    			<p>{{ review.note }}/5 - {{ review.review_date }}</p>
+			    			<p>{{ review.review }}</p>
+			    			<p><small>- {{ review.username }}</small></p>
+			    		</div>			    		
+					{% endfor %}
+					</div>
+				{% else %}
+				<p>No review has been left for this book, for now.</p>	
+                {% endif %}
+                {% if has_reviewed == False %}
+		    		<p><a class="cta-primary" href="/review/add/{{ book.isbn }}">Add a review</a><p>
+		    	{% endif %}
+		    </div>
+		</div>
+
+      </section>
+    </article>
+
+	{% endwith %}
+{% endblock %}
+
+
